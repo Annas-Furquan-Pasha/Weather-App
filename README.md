@@ -25,8 +25,8 @@ the details shown are :
 
 For using this app 
 - The user should have vs code or android studio installed in their device
-- Clone this repository in local device and open using vs code or android studio
-- Run command 'flutter pub get' to download the dependencies
+- Clone this repository in local device and open the file using vs code or android studio
+- Run command 'flutter pub get' to download the dependencies in the terminal
 - For running in real device connect device with usb debugging option as 'ON' then run the file to get the app on their device
 - For running in emulator create an emulator and run the file in that emulator
 
