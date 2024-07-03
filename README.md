@@ -16,10 +16,10 @@ the details shown are :
 
 ## Build Details
 
-This app is made completely with flutter and android studio
-For state management 'flutter_riverpod' package is used
-For getting information from api 'http' package is used
-For storing recent history in device 'sqflite' package is used
+- This app is made completely with flutter and android studio
+- For state management 'flutter_riverpod' package is used
+- For getting information from api 'http' package is used
+- For storing recent history in device 'sqflite' package is used
 
 ## How to Use
 
