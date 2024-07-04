@@ -4,15 +4,17 @@ A new Flutter project
 
 ## Getting Started
 
-This User friendly app is used to get details of the weather in a particular city
-Weather details are taken from an api called OpenWeatherMap api
-the details shown are :
-- City Name
-- Temperature (in celsius)
-- Humidity Percentage
-- Wind Speed in meter per second 
-- weather condition
-- an icon representing weather condition
+- This User friendly app is used to get details of the weather in a particular city
+- Weather details are taken from an api called OpenWeatherMap api
+- The details shown are :
+- - City Name
+- - Temperature (in celsius)
+- - Humidity Percentage
+- - Wind Speed in meter per second 
+- - weather condition
+- - an icon representing weather condition
+- A refresh icon is also added to get updated weather details.
+- The user can refresh for every one minute
 
 ## Build Details
 

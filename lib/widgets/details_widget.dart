@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_app/provider/helper_provider.dart';
@@ -17,15 +19,50 @@ class DetailsWidget extends ConsumerStatefulWidget {
 
 class _DetailsWidgetState extends ConsumerState<DetailsWidget> {
 
+  static const _timerDuration = 60;
+  final StreamController<int> _timerStream = StreamController<int>();
+  late int timerCounter;
+  late Timer _resendCodeTimer;
+
+  @override
+  void initState() {
+    _timerStream.sink.add(0);
+    super.initState();
+  }
+
+  @override
+  dispose(){
+    _timerStream.close();
+    _resendCodeTimer.cancel();
+
+    super.dispose();
+  }
+
+
+  void activeCounter () {
+    _resendCodeTimer =
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (_timerDuration - timer.tick > 0) {
+        _timerStream.sink.add(_timerDuration - timer.tick);
+      } else {
+        _timerStream.sink.add(0);
+        _resendCodeTimer.cancel();
+      }
+    });
+  }
+
+  bool onPressedButton = true;
+
   bool _isOnRefresh = false;
   void onRefresh() async {
     setState(() {
       _isOnRefresh = true;
     });
-   await ref.read(dataProvider.notifier).addWeatherDetails(widget.data['name']);
-   setState(() {
-     _isOnRefresh = false;
-   });
+    await ref.read(dataProvider.notifier).addWeatherDetails(
+        widget.data['name']);
+    setState(() {
+      _isOnRefresh = false;
+    });
   }
 
   @override
@@ -60,8 +97,22 @@ class _DetailsWidgetState extends ConsumerState<DetailsWidget> {
               children: [
                 _isOnRefresh
                     ? const CircularProgressIndicator()
-                    : ElevatedButton.icon(onPressed:  onRefresh,
-                            label: Text('Refresh', style: Theme.of(context).textTheme.bodyMedium,), icon: const Icon(Icons.refresh),),
+                    : StreamBuilder<Object>(
+                      stream: _timerStream.stream,
+                      builder: (context, snapshot) {
+                        return ElevatedButton.icon(
+                            icon: snapshot.data == 0 ? const Icon(Icons.refresh) : null,
+                          style: snapshot.data != 0 ? ElevatedButton.styleFrom(elevation: 0, backgroundColor: Colors.grey) : ElevatedButton.styleFrom(),
+                          onPressed: snapshot.data == 0 ? () {
+                            _timerStream.sink.add(_timerDuration);
+                            activeCounter();
+                          } : onRefresh,
+                          label: snapshot.data == 0
+                              ? Text('Refresh', style: Theme.of(context).textTheme.bodyMedium)
+                              : Text(snapshot.hasData ? snapshot.data.toString() : '', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                        );
+                      }
+                    ),
                 ElevatedButton.icon(onPressed: () {
                   Navigator.of(context).pop();
                 }, label: Text('Back', style: Theme.of(context).textTheme.bodyMedium,), icon: const Icon(Icons.arrow_back),)

@@ -84,6 +84,13 @@ class RecentNotifier extends StateNotifier<List<String>> {
 
     state = [city.toLowerCase(), ...state];
   }
+
+  void clear() async {
+    final db = await _getDatabase();
+    state.clear();
+    db.delete('recent_searches');
+    state = [];
+  }
 }
 
 final recentProvider = StateNotifierProvider<RecentNotifier, List<String>>((ref) => RecentNotifier());

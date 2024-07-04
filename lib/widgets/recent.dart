@@ -21,7 +21,18 @@ class _RecentState extends ConsumerState<Recent> {
     return recent.isNotEmpty ? Expanded(
         child: Column(
           children: [
-            Text('Recent', style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.left,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Recent', style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.left,),
+                GestureDetector(
+                  onTap: () {
+                    ref.read(recentProvider.notifier).clear();
+                  },
+                  child: Text('clear', style: Theme.of(context).textTheme.bodyMedium,),
+                )
+              ],
+            ),
             const SizedBox(height: 10,),
             Expanded(
               child: ListView.builder(
@@ -40,7 +51,8 @@ class _RecentState extends ConsumerState<Recent> {
                             children: [
                               Row(
                                 children: [
-                                  IconButton(onPressed: () {}, icon: const Icon(Icons.history)),
+                                  const Icon(Icons.history),
+                                  const SizedBox(width: 8,),
                                   Text(recent[index], style: Theme.of(context).textTheme.bodyMedium,),
                                 ],
                               ),
