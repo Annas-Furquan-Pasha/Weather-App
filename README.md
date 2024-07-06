@@ -7,21 +7,21 @@ A new Flutter project
 - This User friendly app is used to get details of the weather in a particular city
 - Weather details are taken from an api called OpenWeatherMap api
 - The details shown are :
-- - City Name
-- - Temperature (in celsius)
-- - Humidity Percentage
-- - Wind Speed in meter per second 
-- - weather condition
-- - an icon representing weather condition
+  - City Name
+  - Temperature (in celsius)
+  - Humidity Percentage
+  - Wind Speed in meter per second 
+  - weather condition
+  - an icon representing weather condition
 - A refresh icon is also added to get updated weather details.
-- The user can refresh for every one minute
+- The user can refresh for every 10 seconds
 
 ## Build Details
 
-- This app is made completely with flutter and android studio
-- For state management 'flutter_riverpod' package is used
-- For getting information from api 'http' package is used
-- For storing recent history in device 'sqflite' package is used
+- This app is made completely with flutter(version : 3.22.2, dart version : 3.4.3) and android studio
+- For state management 'flutter_riverpod (version : 2.5.1)' package is used
+- For getting information from api 'http (version : 1.2.1)' package is used
+- For storing recent history in device 'sqflite (version : 2.3.3+1)' package is used
 
 ## How to Use
 

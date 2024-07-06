@@ -19,7 +19,7 @@ class DetailsWidget extends ConsumerStatefulWidget {
 
 class _DetailsWidgetState extends ConsumerState<DetailsWidget> {
 
-  static const _timerDuration = 60;
+  static const _timerDuration = 10;
   final StreamController<int> _timerStream = StreamController<int>();
   late int timerCounter;
   late Timer _resendCodeTimer;
